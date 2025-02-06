@@ -37,6 +37,19 @@ class AtualizarAstrosCommand extends Command
      */
     public function handle()
     {
-        return 0;
+        system('php artisan config:cache');
+        // system('php artisan config:clear');
+        $this->info('Tirando sistema do ar');
+        system('php artisan down');
+
+        $this->info('rodando migrations');
+        system('php artisan migrate');
+
+        $this->info('Atualizando astros');
+        system('php artisan db:seed --class="Database\Seeders\DatabaseSeeder"');
+        $this->info('Astros atualizado');
+
+        $this->info('Colocando sistema do ar');
+        system('php artisan up');
     }
 }

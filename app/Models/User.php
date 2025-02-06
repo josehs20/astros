@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'grupo_usuario_id',
     ];
 
     /**
@@ -41,4 +42,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function processos() {
+        return $this->hasMany(UsuarioProcesso::class, 'grupo_usuario_id', 'grupo_usuario_id');
+    }
 }

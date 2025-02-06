@@ -23,6 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (auth()->user()) {
+            $this->carregaMenus();
+        }
         return view('home');
+    }
+
+    private function carregaMenus() {
+        $processosUsuario = auth()->user()->processos;
     }
 }
