@@ -32,12 +32,51 @@ class CreateUsuarioProcessosSeed extends Seeder
                 'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
             ],
             [
+                'processo_id' => config('conf.processos.gerenciamento.promocao.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
                 'processo_id' => config('conf.processos.historicos.chat.id'),
                 'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
             ],
+            [
+                'processo_id' => config('conf.processos.gerenciamento.cliente.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.painel.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.compras.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.pontos.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.suporte.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.depoimento.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.financeiro.fechamento.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.financeiro.credito.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.conta.perfil.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ]
             
             //----------------------------atendente---------------------------//
-
 
         ];
     }

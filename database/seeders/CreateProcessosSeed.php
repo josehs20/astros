@@ -31,17 +31,18 @@ class CreateProcessosSeed extends Seeder
             $n = $value['nome'];
             unset($value['nome']);
             foreach ($value as $tipo => $v) {
-    
             $data[] = [
+                'id' => $v['id'],
                 'descricao' => $v['descricao'],
                 'nome' => $v['nome'],
                 'tipo' => $n,
+                'icon' => $v['icon'],
                 'rota' => $v['rota'],
                 'posicao_menu' => $v['posicao_menu']
             ];
             }
-
         }
+       
         return $data;
     }
 }

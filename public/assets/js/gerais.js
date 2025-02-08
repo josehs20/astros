@@ -634,6 +634,36 @@ function centavosParaFloat(valorEmCentavos) {
     // Divide por 100 e retorna como float
     return valorEmCentavos / 100;
 }
+function maskTel(elemento){
+    $('#' + elemento).mask('(00) 0000-0000');  // Máscara para número fixo
+
+    // $('#' + elemento).blur(function(){
+    //     var currentVal = $(this).val();
+        
+    //     // Verifica o comprimento do valor e ajusta a máscara para o número móvel
+    //     if (currentVal.length > 14) {
+    //         $(this).mask('(00) 00000-0000');  // Máscara para número móvel
+    //     } else {
+    //         $(this).mask('(00) 0000-0000');  // Máscara para número fixo
+    //     }
+    // });
+
+}
+
+function formataTempo(elemento) {
+    $('#'+ elemento).on('input', function() {
+        let valor = $(this).val();
+
+        // Permite apenas números seguidos por 'h' ou 'm' (exemplo: 2h, 30m, 1h 20m)
+        valor = valor.replace(/[^0-9hm\s]/g, ''); // Remove caracteres inválidos
+        valor = valor.replace(/\s+/g, ' '); // Remove espaços duplicados
+        valor = valor.replace(/m.*h/, 'h'); // Garante que 'h' vem antes de 'm'
+        valor = valor.replace(/h+/g, 'h ').replace(/m+/g, 'm '); // Evita múltiplos 'h' ou 'm'
+        valor = valor.replace(/^m/, '').replace(/^h/, ''); // Evita começar com 'm' ou 'h'
+
+        $(this).val(valor.trim());
+    });
+}
 
 function centavosParaReais(valorEmCentavos) {
     // Verifica se o valor é um número e não é NaN

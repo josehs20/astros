@@ -14,6 +14,7 @@ class Processo extends Model
         'descricao',
         'tipo',
         'rota',
+        'icon',
         'posicao_menu',
     ];
 }

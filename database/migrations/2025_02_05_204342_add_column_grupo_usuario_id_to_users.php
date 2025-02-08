@@ -15,6 +15,7 @@ class AddColumnGrupoUsuarioIdToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('grupo_usuario_id');
+            $table->boolean('ativo')->default(true);
 
             $table->foreign('grupo_usuario_id')->references('id')->on('grupo_usuarios');
         });

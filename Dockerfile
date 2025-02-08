@@ -52,7 +52,8 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 # Limpar o cache do Composer
 RUN composer clear-cache
-
+# Rodar o comando storage:link para criar o link simbólico
+RUN php artisan storage:link
 # Expor a porta 80
 EXPOSE 80
 

@@ -66,7 +66,7 @@
         <div class="branding d-flex align-items-cente">
 
             <div class="container position-relative d-flex align-items-center justify-content-between">
-                <a href="{{route('inicio.index')}}" class="logo d-flex align-items-center">
+                <a href="{{ route('inicio.index') }}" class="logo d-flex align-items-center">
                     <!-- Uncomment the line below if you also wish to use an image logo -->
                     <!-- <img src="assets/img/logo.png" alt=""> -->
                     <h1 class="sitename">ASTROS21</h1>
@@ -76,27 +76,32 @@
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#hero' : route('inicio.index') }}" class="active">
+                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#hero' : route('inicio.index') }}"
+                                class="active">
                                 Início<br>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#about-consultores' : route('inicio.index') }}">
+                            <a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#about-consultores' : route('inicio.index') }}">
                                 Consultores
                             </a>
                         </li>
                         <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#horoscopoNave' : route('inicio.index') }}">
+                            <a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#horoscopoNave' : route('inicio.index') }}">
                                 Horóscopo
                             </a>
                         </li>
                         <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#quemSomosNave' : route('inicio.index') }}">
+                            <a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#quemSomosNave' : route('inicio.index') }}">
                                 Quem somos
                             </a>
                         </li>
                         <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#team' : route('inicio.index') }}">
+                            <a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#team' : route('inicio.index') }}">
                                 Comprar
                             </a>
                         </li>
@@ -184,7 +189,7 @@
                 </div>
             </div>
         </nav> --}}
-        @if(Route::currentRouteName() != 'inicio.index')
+    @if (Route::currentRouteName() != 'inicio.index')
         <style>
             main {
                 display: flex;
@@ -197,7 +202,7 @@
                 padding: 20px;
                 /* Espaçamento interno */
             }
-    
+
             main>.container {
                 width: 100%;
                 /* Garantir que o container ocupe 100% da largura disponível */
@@ -208,6 +213,8 @@
     @endif
 
     <main class="py-4">
+
+
         @yield('content')
     </main>
     {{-- </div> --}}
@@ -216,7 +223,8 @@
 
         <div class="container copyright text-center mt-4">
             <p style="color: #ffff">© <span>Copyright</span> <strong class="px-1 sitename">All</strong>
-                <span>Tecnologia</span></p>
+                <span>Tecnologia</span>
+            </p>
 
         </div>
 
