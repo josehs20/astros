@@ -14,6 +14,8 @@ return [
         'livre' => 1,
         'ocupado' => 2,
         'off' => 3,
+        'aberto' => 4,
+        'respondido' => 5,
     ],
 
     'processos' => [

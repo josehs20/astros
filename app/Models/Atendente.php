@@ -18,12 +18,19 @@ class Atendente extends Model
         'tel',
         'preco',
         'descricao',
-        'comissao'
+        'status_id',
+        'comissao',
+        'especialista'
     ];
 
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuario_id');
+    }
+    
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
     }
 
     public function uploadFoto($request)

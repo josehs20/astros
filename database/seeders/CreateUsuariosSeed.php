@@ -20,7 +20,7 @@ class CreateUsuariosSeed extends Seeder
         if (!$admin) {
             User::create([
                 'name' => 'Admin',
-                'email' => 'admin@astro.com',
+                'email' => 'admin@astros.com',
                 'password' => Hash::make('secret'),
                 'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
             ]);

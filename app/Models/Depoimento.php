@@ -11,14 +11,21 @@ class Depoimento extends Model
 
      // Defina os campos que podem ser preenchidos via atribuição em massa (mass assignment)
      protected $fillable = [
-         'usuario_id',
+         'remetente_id',
+         'destinatario_id',
          'depoimento',
+         'resposta',
          'ativo',
      ];
  
      // Se desejar, pode adicionar relação com o modelo Usuario (se existir)
-     public function usuario()
+     public function remetente()
      {
-         return $this->belongsTo(User::class, 'usuario_id');
+         return $this->belongsTo(User::class, 'remetente_id');
+     }
+
+     public function destinatario_id()
+     {
+         return $this->belongsTo(User::class, 'destinatario_id');
      }
 }

@@ -13,6 +13,6 @@ class DatabaseFakeSeed extends Seeder
      */
     public function run()
     {
-        
+        $this->call(CreateAtendentesSeed::class);
     }
 }

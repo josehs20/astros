@@ -12,7 +12,7 @@
 
     <!-- Scripts -->
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/fotor-redondo.png') }}">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
@@ -42,10 +42,37 @@
 
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <style>
+        body {
+            background-image: url('/assets/img/fundo_u.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+
+        @keyframes girar {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .fotor-redondo-logo {
+            animation: girar 150s linear infinite;
+            /* Tempo de rotação de 10 segundos */
+        }
+    </style>
 </head>
 
 <body class="index-page">
-    <header id="header" class="header fixed-top">
+    <header id="header" class="header fixed-top accent-background">
 
         {{-- <div class="topbar d-flex align-items-center">
             <div class="container d-flex justify-content-center justify-content-md-between">
@@ -64,51 +91,26 @@
         </div><!-- End Top Bar --> --}}
 
         <div class="branding d-flex align-items-cente">
-
-            <div class="container position-relative d-flex align-items-center justify-content-between">
-                <a href="{{ route('inicio.index') }}" class="logo d-flex align-items-center">
-                    <!-- Uncomment the line below if you also wish to use an image logo -->
-                    <!-- <img src="assets/img/logo.png" alt=""> -->
-                    <h1 class="sitename">ASTROS21</h1>
-                    <span>.</span>
+            <div class="container position-relative d-flex align-items-center justify-content-between"><a
+                    href="{{ route('inicio.index') }}" class="logo d-flex align-items-center"><img
+                        src="{{ asset('assets/img/fotor-redondo.png') }}" alt="">
+                    <h1 class="sitename">ASTROS21</h1><span>.</span>
                 </a>
-
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li>
-                            <a href="{{ Route::currentRouteName() == 'inicio.index' ? '#hero' : route('inicio.index') }}"
-                                class="active">
-                                Início<br>
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#about-consultores' : route('inicio.index') }}">
-                                Consultores
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#horoscopoNave' : route('inicio.index') }}">
-                                Horóscopo
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#quemSomosNave' : route('inicio.index') }}">
-                                Quem somos
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#team' : route('inicio.index') }}">
-                                Comprar
-                            </a>
-                        </li>
-                        <li><a href="{{ route('login') }}">Entrar</a></li>
-
-                        {{-- <li><a href="blog.html">Blog</a></li> --}}
-                        {{-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <li><a href="{{ Route::currentRouteName() == 'inicio.index' ? '#hero' : route('inicio.index', ['ancorar' => 'hero']) }}"
+                                class="active">Início<br></a></li>
+                        <li><a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#consultores' : route('inicio.index', ['ancorar' => 'consultores']) }}">Consultores
+                            </a></li>
+                        <li><a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#horoscopoNave' : route('inicio.index', ['ancorar' => 'horoscopoNave']) }}">Horóscopo
+                            </a></li>
+                        <li><a
+                                href="{{ Route::currentRouteName() == 'inicio.index' ? '#quemSomosNave' : route('inicio.index', ['ancorar' => 'quemSomosNave']) }}">Quem
+                                somos </a></li>
+                        <li><a href="{{ route('login') }}">{{ auth()->user() ? 'Minha conta' : 'Entrar' }}</a></li>
+                        {{-- <li><a href="blog.html">Blog</a></li> --}} {{-- <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li><a href="#">Dropdown 1</a></li>
                   <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -125,17 +127,11 @@
                   <li><a href="#">Dropdown 4</a></li>
                 </ul>
               </li> --}}
-                    </ul>
-                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                    </ul><i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
-
             </div>
-
         </div>
-
-    </header>
-
-    {{-- <div id="app">
+    </header>{{-- <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -188,8 +184,7 @@
                     </ul>
                 </div>
             </div>
-        </nav> --}}
-    @if (Route::currentRouteName() != 'inicio.index')
+        </nav> --}} @include('layouts.modal_sair') @if (Route::currentRouteName() != 'inicio.index')
         <style>
             main {
                 display: flex;
@@ -221,6 +216,7 @@
 
     <footer id="footer" class="footer accent-background">
 
+
         <div class="container copyright text-center mt-4">
             <p style="color: #ffff">© <span>Copyright</span> <strong class="px-1 sitename">All</strong>
                 <span>Tecnologia</span>
@@ -248,6 +244,19 @@
 
     <!-- Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if (!empty($ancorar))
+                let elemento = document.getElementById("{{ $ancorar }}");
+                if (elemento) {
+                    elemento.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            @endif
+        });
+    </script>
+
 </body>
 
 </html>

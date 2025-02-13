@@ -25,7 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\InicioController::class, 'index'])->name('inicio.index');
+Route::get('/', function () {
+    return redirect()->route('inicio.index');
+});
+
+Route::get('index/{ancorar?}', [App\Http\Controllers\InicioController::class, 'index'])->name('inicio.index');
+Route::get('/show/{atendente_id}', [App\Http\Controllers\InicioController::class, 'show'])->name('consulta.show');
+
 Route::get('/login/sair', function () {
     Auth::logout();
     return redirect()->route('inicio.index');
@@ -116,8 +122,10 @@ Route::middleware('processo:' . config('conf.processos.menu.suporte.id'))
     ->prefix('suporte')->group(function () {
         Route::get('/index', [SuporteController::class, 'index'])->name('suporte.index');
         Route::get('/create', [SuporteController::class, 'create'])->name('suporte.create');
-        Route::post('/post', [SuporteController::class, 'store'])->name('suporte.post');
+        Route::post('/post', [SuporteController::class, 'store'])->name('suporte.store');
         Route::put('/update', [SuporteController::class, 'update'])->name('suporte.update');
+        Route::post('/responder', [SuporteController::class, 'responder'])->name('suporte.responder');
+        Route::post('/remover-resposta', [SuporteController::class, 'remover_resposta'])->name('suporte.remover.resposta');
     });
 
 // Grupo de Suporte
@@ -128,7 +136,6 @@ Route::middleware('processo:' . config('conf.processos.menu.depoimento.id'))
         Route::post('/post', [DepoimentoController::class, 'store'])->name('depoimento.post');
         Route::post('/update', [DepoimentoController::class, 'update'])->name('depoimento.update');
         Route::get('/pendentes', [DepoimentoController::class, 'getDepoimentos'])->name('depoimento.get');
-
     });
 
 // Grupo de Suporte
@@ -149,11 +156,11 @@ Route::middleware('processo:' . config('conf.processos.financeiro.credito.id'))
         Route::put('/update', [FechamentoController::class, 'update'])->name('credito.update');
     });
 
-    // Grupo de Suporte
+// Grupo de Suporte
 Route::middleware('processo:' . config('conf.processos.conta.perfil.id'))
-->prefix('perfil')->group(function () {
-    Route::get('/index', [FechamentoController::class, 'index'])->name('perfil.index');
-    Route::get('/create', [FechamentoController::class, 'create'])->name('perfil.create');
-    Route::post('/post', [FechamentoController::class, 'store'])->name('perfil.post');
-    Route::put('/update', [FechamentoController::class, 'update'])->name('perfil.update');
-});
+    ->prefix('perfil')->group(function () {
+        Route::get('/index', [FechamentoController::class, 'index'])->name('perfil.index');
+        Route::get('/create', [FechamentoController::class, 'create'])->name('perfil.create');
+        Route::post('/post', [FechamentoController::class, 'store'])->name('perfil.post');
+        Route::put('/update', [FechamentoController::class, 'update'])->name('perfil.update');
+    });

@@ -15,13 +15,15 @@ class CreateDepoimentosTable extends Migration
     {
         Schema::create('depoimentos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('remetente_id');
+            $table->unsignedBigInteger('destinatario_id');
             $table->longText('depoimento');
+            $table->longText('resposta')->nullable();
             $table->boolean('ativo');
             $table->timestamps();
 
-            $table->foreign('usuario_id')->references('id')->on('users');
-
+            $table->foreign('remetente_id')->references('id')->on('users');
+            $table->foreign('destinatario_id')->references('id')->on('users');
         });
     }
 

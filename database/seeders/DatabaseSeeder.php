@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CreateGrupoUsuarioSeed::class);
         $this->call(CreateUsuarioProcessosSeed::class);
         $this->call(CreateUsuariosSeed::class);
+        $this->call(CreateStatusSeed::class);
     }
 }

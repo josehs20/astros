@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Atendente;
 use App\Models\Depoimento;
 use App\System\Post;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class DepoimentoController extends Controller
     public function index()
     {
         $depoimentos = Depoimento::get();
-        return view('depoimentos.index', ['depoimentos' => $depoimentos]);
+        $atendentes = Atendente::get();
+        return view('depoimentos.index', ['depoimentos' => $depoimentos, 'atendentes' => $atendentes]);
     }
 
     public function create()
@@ -28,10 +30,10 @@ class DepoimentoController extends Controller
         try {
             // Validar os dados recebidos
             $p = new Fluent(Post::anti_injection_array($request->all()));
-
             $depoimento = Depoimento::create([
-                'usuario_id' => auth()->user()->id,
+                'remetente_id' => auth()->user()->id,
                 'depoimento' => $p->depoimento,
+                'destinatario_id' => $p->destinatario,
                 'ativo' => false
             ]);
             DB::commit();
@@ -39,7 +41,8 @@ class DepoimentoController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error($e);
-            return response()->json(['success' => false, 'msg' => 'Não foi possível cadastrar o depoimento.']);
+          
+            return response()->json(['success' => false, 'msg' => $e->getMensage]);
         }
     }
 

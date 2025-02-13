@@ -74,6 +74,7 @@ class AtendenteController extends Controller
                 'preco' => converteDinheiroParaFloat($p->preco),
                 'comissao' => converteDinheiroParaFloat($request->comissao),
                 'foto' => '',
+                'especialidade' => $p->especialidade,
                 'descricao' => $p->descricao,
                 'tel' => $request->tel,
             ])->uploadFoto($request);
@@ -99,6 +100,8 @@ class AtendenteController extends Controller
     {
         DB::beginTransaction();
         try {
+            $p = new Fluent(Post::anti_injection_array($request->except('foto')));
+
             // Encontrar o atendente pelo ID
             $atendente = Atendente::findOrFail($id);
             $usuario = $atendente->usuario; // Acessando o usuário associado ao atendente
@@ -132,19 +135,20 @@ class AtendenteController extends Controller
 
             // Atualizar o usuário
             $usuario->update([
-                "name" => $request->nome,
-                "email" => $request->email,
-                "ativo" => $request->ativo ?? false,
-                "password" => $request->has('password') ? Hash::make($request->password) : $usuario->password
+                "name" => $p->nome,
+                "email" => $p->email,
+                "ativo" => $p->ativo ?? false,
+                "password" => $p->has('password') ? Hash::make($p->password) : $usuario->password
             ]);
 
             // Atualizar o atendente
             $atendente->update([
-                'nome' => $request->nome_fantasia,
-                'preco' => converteDinheiroParaFloat($request->preco),
-                'comissao' => converteDinheiroParaFloat($request->comissao),
-                'descricao' => $request->descricao,
-                'tel' => $request->tel,
+                'nome' => $p->nome_fantasia,
+                'preco' => converteDinheiroParaFloat($p->preco),
+                'comissao' => converteDinheiroParaFloat($p->comissao),
+                'descricao' => $p->descricao,
+                'tel' => $p->tel,
+                'especialidade' => $p->especialidade,
             ]);
      
             // Se houver foto, fazer o upload

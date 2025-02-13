@@ -66,8 +66,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="fecharModal" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="promoForm" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary" id="fecharModal" data-dismiss="modal"><i class="bi bi-arrow-left"></i>Fechar</button>
+                    <button type="submit" form="promoForm" class="btn btn-primary"> <i class="bi bi-floppy"></i> Salvar</button>
                 </div>
             </div>
         </div>

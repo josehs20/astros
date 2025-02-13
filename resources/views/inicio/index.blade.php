@@ -1,17 +1,53 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .text-white,
+        .text-white * {
+            color: white !important;
+        }
 
+        .member {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            text-align: center !important;
+            background: #fff !important;
+            /* Cor de fundo */
+            padding: 20px !important;
+            border-radius: 10px !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            min-height: 450px !important;
+            /* Altura mínima do card */
+        }
+
+        .member img {
+            width: 100% !important;
+            /* Ocupa toda a largura do card */
+            height: 250px !important;
+            /* Força todas as imagens a terem a mesma altura */
+            object-fit: cover !important;
+            /* Garante que a imagem cubra o espaço sem distorcer */
+            border-radius: 10px !important;
+            /* Bordas arredondadas */
+        }
+
+        .member h4,
+        .member .stars {
+            margin-top: 10px !important;
+        }
+    </style>
     <main class="main">
 
         <!-- Hero Section -->
         <section id="hero" class="hero section accent-background">
 
-            <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+            <div class="container position-relative text-white" data-aos="fade-up" data-aos-delay="100">
                 <div class="row gy-5 justify-content-between">
                     <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
                         <h2 style="color: #ffff;"><span style="color: #ffff;">O futuro ao seu alcance 24H</span></h2>
-                        <p style="color: #ffff">Experimente grátis e sinta a diferença!</p>
+                        {{-- <p style="color: #ffff">Experimente grátis!</p> --}}
                         <div class="d-flex">
                             <a href="#about-consultores" style="background-color: green;color: #ffff"
                                 class="btn-get-started mx-3">VIDENTES</a>
@@ -20,153 +56,148 @@
 
                         </div>
                     </div>
-                    <style>
-                        @keyframes girar {
-                            from {
-                                transform: rotate(0deg);
-                            }
 
-                            to {
-                                transform: rotate(360deg);
-                            }
+                    <div class="col-lg-5 order-1 order-lg-2">
+                        <img id="fotor-redondo" src="{{ asset('assets/img/fotor-redondo.png') }}" width="80%"
+                            class="img-fluid fotor-redondo-logo" alt="">
+                    </div>
+                </div>
+            </div>
+        </section><!-- /Hero Section -->
+
+        {{-- <section id="team" class="team section back accent-background">
+
+            <!-- Section Title -->
+            <div class="container section-title text-white" data-aos="fade-up">
+                <h2>Consultores</h2>
+                <p>Escolha seu guia espiritual e descubra o que o destino reserva para você</p>
+            </div><!-- End Section Title -->
+
+            <div class="container">
+
+                <div class="row gy-4">
+
+                    @forelse ($atendentes as $a)
+                        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                            <div class="member">
+                                <img src="{{ asset(str_replace('public/', '', $a->foto)) }}" class="img-fluid member"
+                                    alt="">
+                                <h4>{{ $a->nome }}wqeqweqweqweqweqwe</h4>
+                                <div class="stars" style="color: #ffc107">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                        class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <h4>{{ converterParaReais($a->preco) }}</h4>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
+
+
+                </div>
+            </div>
+
+        </section><!-- /Team Section --> --}}
+
+
+
+        <section id="consultores" class="testimonials section accent-background">
+
+            <!-- Section Title -->
+            <div class="container section-title text-white" data-aos="fade-up">
+                <h2>Consultores</h2>
+                <p>Escolha seu guia espiritual e descubra o que o destino reserva para você</p>
+            </div><!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+              {
+                "loop": true,
+                "speed": 600,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "slidesPerView": "auto",
+                "pagination": {
+                  "el": ".swiper-pagination",
+                  "type": "bullets",
+                  "clickable": true
+                },
+                "breakpoints": {
+                  "320": {
+                    "slidesPerView": 1,
+                    "spaceBetween": 40
+                  },
+                  "1200": {
+                    "slidesPerView": 3,
+                    "spaceBetween": 10
+                  }
+                }
+              }
+            </script>
+                    <div class="swiper-wrapper">
+
+                        @forelse ($atendentes as $a)
+                            <div class="swiper-slide">
+                                <div class="testimonial-item">
+                                    <img src="{{ asset(str_replace('public/', '', $a->foto)) }}" class="testimonial-img"
+                                        alt="">
+                                    <h3>{{ $a->nome }}</h3>
+                                    {{-- <h4>Ceo &amp; Founder</h4> --}}
+                                    <div class="stars">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                            class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                                            class="bi bi-star-fill"></i>
+                                    </div>
+                                    <p>
+                                        <i class="bi bi-quote quote-icon-left"></i>
+                                        <span>{{ $a->descricao }}.</span>
+                                        <i class="bi bi-quote quote-icon-right"></i>
+                                    </p>
+                                    <div class="row">
+                                        <h4>A partir de <span
+                                                style="font-weight: bold; font-size: 1.2rem;">{{ converterParaReais($a->preco) }}</span>
+                                            /min</h4>
+                                        <a href="#consultar-{{ $a->id }}" class="btn btn-success mt-3">Consultar</a>
+                                    </div>
+                                </div>
+                            </div><!-- End testimonial item -->
+                        @empty
+                        @endforelse
+                    </div>
+                    <style>
+                        .testimonials .swiper-pagination .swiper-pagination-bullet {
+                            background-color: rgb(187, 0, 0) !important;
                         }
 
-                        #fotor-redondo {
-                            animation: girar 150s linear infinite;
-                            /* Tempo de rotação de 10 segundos */
+                        .testimonials .swiper-pagination .swiper-pagination-bullet-active {
+                            background-color: white !important;
                         }
                     </style>
-                    <div class="col-lg-5 order-1 order-lg-2">
-                        <img id="fotor-redondo" src="assets/img/fotor-redondo.png" width="80%" class="img-fluid"
-                            alt="">
+                    <div
+                        class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+                        <span class="swiper-pagination-bullet" tabindex="0" role="button"
+                            aria-label="Go to slide 1"></span>
+                        <span class="swiper-pagination-bullet" tabindex="0" role="button"
+                            aria-label="Go to slide 2"></span>
+                        <span class="swiper-pagination-bullet" tabindex="0" role="button"
+                            aria-label="Go to slide 3"></span>
+                        <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                            aria-label="Go to slide 4" aria-current="true"></span>
+                        <span class="swiper-pagination-bullet" tabindex="0" role="button"
+                            aria-label="Go to slide 5"></span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <style>
-                .icon-box {
-                    position: relative !important;
-                    background-size: cover !important;
-                    background-repeat: no-repeat !important;
-                    background-position: center !important;
-                    width: 100% !important;
-                    aspect-ratio: 3/2 !important;
-                    /* Mantém a proporção sem distorcer */
-                    display: flex !important;
-                    flex-direction: column !important;
-                    align-items: center !important;
-                    justify-content: flex-end !important;
-                    padding: 0 !important;
-                    /* Remover padding extra */
-                    margin: 0 !important;
-                    /* Remover margem extra */
-                    border-radius: 10px !important;
-                    overflow: hidden !important;
-                    color: white !important;
-                    padding: 50% !important;
-                    margin-top: 30% !important;
-                }
-
-                .icon-box .content {
-                    position: absolute !important;
-                    bottom: 15px !important;
-                    /* Move tudo mais para baixo */
-                    width: 100% !important;
-                    text-align: center !important;
-                    background: rgba(0, 0, 0, 0.6) !important;
-                    padding: 10px !important;
-                    border-radius: 10px !important;
-                }
-
-                .icon-box h4 {
-                    font-size: 18px !important;
-                    font-weight: bold !important;
-                    margin-bottom: 5px !important;
-                }
-
-                .icon-box .status {
-                    font-size: 14px !important;
-                    margin-bottom: 10px !important;
-                    display: block !important;
-                }
-
-                .icon-box button {
-                    padding: 8px 15px !important;
-                    font-size: 14px !important;
-                    background-color: red !important;
-                    color: white !important;
-                    border: none !important;
-                    border-radius: 5px !important;
-                }
-
-                .title {
-                    color: white !important;
-                }
-            </style>
-
-            <div id="about-consultores" class="icon-boxes position-relative" data-aos="fade-up" data-aos-delay="200">
-                <div class="container position-relative">
-                    <div class="row gy-4 mt-5">
-
-                        <!-- Atendente 1 -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="icon-box"
-                                style="background-image: url('{{ asset('assets/img/atendente1.jpg') }}');">
-                                <div class="content">
-                                    <h4 class="title">Atendente 1</h4>
-                                    <span class="status">Disponível</span>
-                                    <button class="btn btn-danger">Consultar</button>
-                                </div>
-                            </div>
-                        </div><!-- End Atendente -->
-
-                        <!-- Atendente 2 -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="icon-box"
-                                style="background-image: url('{{ asset('assets/img/atendente2.jpg') }}');">
-                                <div class="content">
-                                    <h4 class="title">Atendente 1</h4>
-                                    <span class="status">Disponível</span>
-                                    <button class="btn btn-danger">Consultar</button>
-                                </div>
-                            </div>
-                        </div><!-- End Atendente -->
-
-                        <!-- Atendente 3 -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="icon-box"
-                                style="background-image: url('{{ asset('assets/img/atendente3.jpg') }}');">
-                                <div class="content">
-                                    <h4 class="title">Atendente 1</h4>
-                                    <span class="status">Disponível</span>
-                                    <button class="btn btn-danger">Consultar</button>
-                                </div>
-                            </div>
-                        </div><!-- End Atendente -->
-
-                        <!-- Atendente 4 -->
-                        <div class="col-xl-3 col-md-6">
-                            <div class="icon-box"
-                                style="background-image: url('{{ asset('assets/img/atendente4.jpg') }}');">
-                                <div class="content">
-                                    <h4 class="title">Atendente 1</h4>
-                                    <span class="status">Disponível</span>
-                                    <button class="btn btn-danger">Consultar</button>
-                                </div>
-                            </div>
-                        </div><!-- End Atendente -->
-
-                    </div>
-                </div>
-            </div>
-
-
-
-        </section><!-- /Hero Section -->
         <!-- Services Section -->
-        <section id="horoscopoNave" class="services section">
+        <section id="horoscopoNave" class="services section accent-background">
 
-            <div class="container section-title" data-aos="fade-up">
+            <div class="container section-title text-white" data-aos="fade-up">
                 <h2>Horóscopo</h2>
                 <p>Descubra o que os astros revelam para você hoje! Confira as previsões para cada signo e aproveite as
                     energias do universo a seu favor.</p>
@@ -178,8 +209,7 @@
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-item position-relative">
                             <div class="icon">
-                                <img src="{{ asset('assets/img/horoscopos/aries.png') }}" alt="Áries"
-                                    class="img-fluid">
+                                <img src="{{ asset('assets/img/horoscopos/aries.png') }}" alt="Áries" class="img-fluid">
                             </div>
                             <h3>Áries</h3>
                             <p>O ariano é conhecido pela sua coragem e energia. Está sempre em busca de novos desafios e
@@ -193,8 +223,7 @@
                     <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-item position-relative">
                             <div class="icon">
-                                <img src="{{ asset('assets/img/horoscopos/touro.png') }}" alt="Áries"
-                                    class="img-fluid">
+                                <img src="{{ asset('assets/img/horoscopos/touro.png') }}" alt="Áries" class="img-fluid">
                             </div>
                             <h3>Touro</h3>
                             <p>Taurino é calmo, paciente e determinado. Gosta de estabilidade e segurança. Pode ser um pouco
@@ -337,7 +366,7 @@
 
         </section><!-- /Services Section -->
         <!-- About Section -->
-        <section id="quemSomosNave" class="about section">
+        <section id="quemSomosNave" class="about section text-white accent-background">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
@@ -875,87 +904,6 @@
 
         </section><!-- /Portfolio Section --> --}}
 
-        <!-- Team Section -->
-        <section id="team" class="team section">
-
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Sobre consultores</h2>
-                {{-- <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> --}}
-            </div><!-- End Section Title -->
-
-            <div class="container">
-
-                <div class="row gy-4">
-
-                    <style>
-                        .member img {
-    max-width: 200px !important; /* Define a largura máxima */
-    max-height: 200px !important; /* Define a altura máxima */
-    object-fit: cover !important; /* Garante que a imagem preencha o espaço sem distorcer */
-    border-radius: 10px !important; /* (Opcional) Adiciona bordas arredondadas */
-}
-
-                    </style>
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-                        <div class="member">
-                            <img src="{{asset('assets/img/atendente1.jpg')}}" class="img-fluid" alt="">
-                            <h4>Zé do Caxinguelê</h4>
-                            <span>Consultor Espiritual</span>
-                            <div class="status">
-                                <p>Status: Disponível</p>
-                                <p>Preço: R$ 150,00</p>
-                            </div>
-                            <button class="btn btn-danger">Consultar</button>
-                        </div>
-                    </div><!-- End Team Member -->
-                    
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-                        <div class="member">
-                            <img src="{{asset('assets/img/atendente2.jpg')}}" class="img-fluid" alt="">
-                            <h4>Maria Padilha</h4>
-                            <span>Consultora de Espiritualidade</span>
-                            <div class="status">
-                                <p>Status: Ocupada</p>
-                                <p>Preço: R$ 200,00</p>
-                            </div>
-                            <button class="btn btn-danger">Consultar</button>
-                        </div>
-                    </div><!-- End Team Member -->
-                    
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-                        <div class="member">
-                            <img src="{{asset('assets/img/atendente3.jpg')}}" class="img-fluid" alt="">
-                            <h4>Clarividente Manuela</h4>
-                            <span>Consultora Mística</span>
-                            <div class="status">
-                                <p>Status: Disponível</p>
-                                <p>Preço: R$ 180,00</p>
-                            </div>
-                            <button class="btn btn-danger">Consultar</button>
-                        </div>
-                    </div><!-- End Team Member -->
-                    
-                    <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-                        <div class="member">
-                            <img src="{{asset('assets/img/atendente4.jpg')}}" class="img-fluid" alt="">
-                            <h4>Iara de Oxum</h4>
-                            <span>Consultora de Sabedoria</span>
-                            <div class="status">
-                                <p>Status: Disponível</p>
-                                <p>Preço: R$ 120,00</p>
-                            </div>
-                            <button class="btn btn-danger">Consultar</button>
-                        </div>
-                    </div><!-- End Team Member -->
-                    
-
-                </div>
-
-            </div>
-
-        </section><!-- /Team Section -->
-
         {{-- <!-- Pricing Section -->
         <section id="pricing" class="pricing section">
 
@@ -1313,6 +1261,4 @@
         </section><!-- /Contact Section --> --}}
 
     </main>
-
-  
 @endsection

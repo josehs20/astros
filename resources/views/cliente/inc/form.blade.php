@@ -20,9 +20,10 @@
     <div class="col-md-4 mb-3">
         <label for="data_nascimento" class="form-label">Data de Nascimento</label>
         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
-            value="{{ old('data_nascimento', \Carbon\Carbon::parse($cliente->data_nascimento)->format('Y-m-d') ?? '') }}" required>
+            value="{{ old('data_nascimento', isset($cliente) && $cliente->data_nascimento ? \Carbon\Carbon::parse($cliente->data_nascimento)->format('Y-m-d') : '') }}"
+            required>
     </div>
-    
+
 
     <div class="col-md-4 mb-3">
         <label for="password" class="form-label">Senha</label>
@@ -37,17 +38,16 @@
     <div class="col-md-4 mb-3">
         <label for="tempo_total_usado" class="form-label">Tempo restante (Em minutos)</label>
         <input type="text" class="form-control" id="tempo_restante" name="tempo_restante"
-            value="{{ old('tempo', tempoParaMinutos($cliente->tempo->format('H:i:s')) ?? '') }}">
+            value="{{ old('tempo', isset($cliente) && $cliente->tempo ? tempoParaMinutos($cliente->tempo->format('H:i:s')) : '') }}">
     </div>
     <div class="col-md-1 mx-1 mb-3">
         <label for="ativo" class="form-label d-block">Ativo</label>
-        <input type="checkbox" class="form-check-input" id="ativo" name="ativo" 
-            value="1" {{ old('ativo', $cliente->usuario->ativo ?? false) ? 'checked' : '' }} 
-            style="width: 25px; height: 25px;">
+        <input type="checkbox" class="form-check-input" id="ativo" name="ativo" value="1"
+            {{ old('ativo', $cliente->usuario->ativo ?? false) ? 'checked' : '' }} style="width: 25px; height: 25px;">
     </div>
     <div class="d-flex justify-content-start">
 
-        <a href="{{ url()->previous() }}" class="btn btn-secondary">
+        <a href="{{ route('cliente.index')}}" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Voltar
         </a>
         <button type="submit" class="btn btn-primary mx-3">

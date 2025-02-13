@@ -74,8 +74,11 @@ class CreateUsuarioProcessosSeed extends Seeder
             [
                 'processo_id' => config('conf.processos.conta.perfil.id'),
                 'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
+            ],
+            [
+                'processo_id' => config('conf.processos.menu.consulta.id'),
+                'grupo_usuario_id' => config('conf.grupo_usuario.admin'),
             ]
-            
             //----------------------------atendente---------------------------//
 
         ];

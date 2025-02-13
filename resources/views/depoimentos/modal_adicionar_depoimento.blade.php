@@ -13,8 +13,20 @@
                 <!-- Formulário para adicionar depoimento -->
                 <form id="formDepoimento">
                     <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                        <label for="nome">Remetente*</label>
+                        <input type="text" id="nome" class="form-control" value="{{ auth()->user()->name }}"
+                            disabled>
+                    </div>
+                    <div class="">
+                        <label for="destinatario">Destinatario*</label><br>
+                        <select style="width: 100%;" id="destinatario" class="form-control select2" required>
+                            <option value="" disabled>Selecione um destinatario</option>
+
+                            @foreach ($atendentes as $d)
+                                <option value="{{ $d->id }}">{{ $d->nome }}</option>
+                            @endforeach
+
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="depoimento">Depoimento</label>
@@ -23,33 +35,38 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary fecharModal" data-dismiss="modal">Cancelar</button>
-                <button type="submit" form="formDepoimento" class="btn btn-primary" id="salvarDepoimento">Salvar</button>
+                <button type="button" class="btn btn-secondary fecharModal" data-dismiss="modal"><i
+                        class="bi bi-arrow-left"></i>Fechar</button>
+                <button type="submit" form="formDepoimento" class="btn btn-primary" id="salvarDepoimento"> <i
+                        class="bi bi-floppy"></i> Salvar</button>
             </div>
         </div>
     </div>
 </div>
 <script>
+        select2('destinatarios');
+
     // Função para enviar o formulário de depoimento via AJAX
     $('#salvarDepoimento').on('click', function(event) {
         event.preventDefault(); // Prevenir o envio padrão do formulário
-    
         // Obter os valores dos campos
-        var nome = $('#nome').val();  // Nome do usuário (já preenchedo)
+        var nome = $('#nome').val(); // Nome do usuário (já preenchedo)
         var depoimento = $('#depoimento').val(); // Texto do depoimento
-    
+        var destinatario = $('#destinatario').val(); // Texto do depoimento
+
         // Verificar se o campo de depoimento não está vazio
         if (depoimento.trim() == '') {
             msgToastr('Por favor, escreva um depoimento.', 'warning');
             return;
         }
-    
+
         // Enviar via AJAX para salvar o depoimento
         $.ajax({
             url: @json(route('depoimento.post')), // Substitua pela sua rota de armazenar depoimento
             method: 'POST',
             data: {
                 nome: nome,
+                destinatario: destinatario,
                 depoimento: depoimento,
                 _token: '{{ csrf_token() }}' // Inclui o token CSRF para segurança
             },
@@ -65,12 +82,11 @@
                 }
             },
             error: function(xhr, status, error) {
-                
+
                 msgToastr('Erro ao salvar depoimento. Tente novamente.', 'error');
 
                 console.log(error);
             }
         });
     });
-    </script>
-    
+</script>
